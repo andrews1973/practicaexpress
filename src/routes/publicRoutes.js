@@ -1,8 +1,10 @@
 
-// Importamos Express para poder crear y gestionar las rutas
-// de nuestra aplicación.
+// Importamos Express para poder crear y gestionar las rutas de nuestra aplicación.
+// const router = express.Router();
+// tambien podriamos desestructurar import express por import {Router}
+// exportamos tambien router para poder usarlo en app
+// AQUI ES DONDE VAN LOS GET POST PUT DELETE
 import express from "express";
-
 
 // ========================================
 // 1. IMPORTAR LOS CONTROLADORES
@@ -10,26 +12,16 @@ import express from "express";
 
 // Importamos las funciones que contienen la lógica
 // que se ejecutará cuando recibamos una petición.
-//
 // Cada controlador se encargará de responder
-// a una ruta determinada.
-import {
-    getIndex,
-    getProductos,
-    getServicios,
-    postProductos
-} from "../controller/publicControllers.js";
-
+// a una ruta determinada, se ponen de forma automatica si hacemos intro en vsc al definir rutas
+import {getIndex, deleteProductById, deleteServiceById, getProdctById,getProducts,getServiceByid,getServices, postProduct, postService, updateProductById, updateServiceById} from "../controller/publicControllers.js";
 
 // ========================================
 // 2. CREAR EL ROUTER
 // ========================================
 
-// express.Router() nos permite crear un sistema de rutas
-// independiente de la aplicación principal.
-//
-// De esta manera, podemos organizar las rutas en archivos
-// separados en lugar de tenerlas todas en app.js.
+// express.Router() nos permite crear un sistema de rutas.
+// podemos organizar las rutas en archivos separados en lugar de tenerlas todas en app.js.
 const router = express.Router();
 
 
@@ -46,25 +38,35 @@ router.get("/", getIndex);
 // GET "/productos"
 // Atiende las peticiones GET que llegan a /productos.
 // Ejecuta el controlador getProductos.
-router.get("/productos", getProductos);
+router.get("/productos", getProducts);
+
+// GET "/productos/:id"
+router.get("/productos/:id", getProdctById)
+
+// POST "/productos"
+router.post("/productos/", postProduct);
+
+// PUT "/producto/:id"
+router.put("/productos/:id", updateProductById)
+
+// DELETE "/producto/:id"
+router.delete("/productos/:id", deleteProductById)
 
 
 // GET "/servicios"
-// Atiende las peticiones GET que llegan a /servicios.
-// Ejecuta el controlador getServicios.
-router.get("/servicios", getServicios);
+router.get("/servicios", getServices);
 
+// GET "/servicios/:id"
+router.get("/servicios/:id", getServiceByid)
 
-// POST "/productos"
-// Atiende las peticiones POST que llegan a /productos.
-//
-// Normalmente utilizaremos POST para enviar nuevos datos
-// desde el cliente al servidor, por ejemplo, para crear
-// un producto.
-//
-// Ejecuta el controlador postProductos.
-router.post("/productos", postProductos);
+// POST "/servicio"
+router.post("/servicios/", postService);
 
+// PUT "/servicio/:id"
+router.put("/servicios/:id", updateServiceById)
+
+// DELETE "/servicios/:id"
+router.delete("/servicios/:id", deleteServiceById)
 
 // ========================================
 // 4. EXPORTAR EL ROUTER
