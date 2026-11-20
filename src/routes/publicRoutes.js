@@ -1,17 +1,17 @@
 
 // Importamos Express para poder crear y gestionar las rutas de nuestra aplicación.
 // const router = express.Router();
-// tambien podriamos desestructurar import express por import {Router}
-// exportamos tambien router para poder usarlo en app
-// AQUI ES DONDE VAN LOS GET POST PUT DELETE
+// tambien podriamos desestructurar y sustituir import express por import {Router}
+// al final del todo exportamos tambien router para poder usarlo en app
+// AQUI ES DONDE VAN LOS GET POST PUT DELETE (CRUD), CON SUS URLS Y SUS LLAMADAS A LOS CONTROLADORES
 import express from "express";
 
 // ========================================
 // 1. IMPORTAR LOS CONTROLADORES
 // ========================================
 
-// Importamos las funciones que contienen la lógica
-// que se ejecutará cuando recibamos una petición.
+// Importamos las funciones (desestructurando) que contienen la lógica del archivo publicControllers.js
+// Y que se ejecutarán cuando recibamos una petición
 // Cada controlador se encargará de responder
 // a una ruta determinada, se ponen de forma automatica si hacemos intro en vsc al definir rutas
 import {getIndex, deleteProductById, deleteServiceById, getProdctById,getProducts,getServiceByid,getServices, postProduct, postService, updateProductById, updateServiceById} from "../controller/publicControllers.js";
@@ -21,7 +21,7 @@ import {getIndex, deleteProductById, deleteServiceById, getProdctById,getProduct
 // ========================================
 
 // express.Router() nos permite crear un sistema de rutas.
-// podemos organizar las rutas en archivos separados en lugar de tenerlas todas en app.js.
+// Asi, podemos organizar las rutas en archivos separados en lugar de tenerlas todas en app.js.
 const router = express.Router();
 
 
@@ -36,7 +36,7 @@ router.get("/", getIndex);
 
 
 // GET "/productos"
-// Atiende las peticiones GET que llegan a /productos.
+// Atiende las peticiones GET que llegan a la url /productos.
 // Ejecuta el controlador getProductos.
 router.get("/productos", getProducts);
 
@@ -72,6 +72,5 @@ router.delete("/servicios/:id", deleteServiceById)
 // 4. EXPORTAR EL ROUTER
 // ========================================
 
-// Exportamos el router para poder importarlo
-// y utilizarlo desde app.js.
+// Exportamos el router para poder importarlo y utilizarlo desde app.js.
 export default router;
