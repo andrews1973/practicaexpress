@@ -1,14 +1,6 @@
 // ========================================
 // CONTROLADOR DE LA PÁGINA PRINCIPAL
 // ========================================
-
-// Exportamos la función getIndex para poder utilizarla
-// desde nuestro archivo publicRoutes.js donde la importaremos
-// req (request): contiene la información de la petición que recibimos del cliente.
-// res (response): nos permite enviar una respuesta al cliente.
-// Cuando recibimos una petición GET a "/", ejecutamos este controlador.
-// Indicamos que la petición ha sido procesada correctamente mediante el código de estado HTTP 200 (OK).
-// .json() envía una respuesta en formato JSON al cliente.
 export const getIndex = (req, res) => {
   res.status(200).json({
     ok: true,
@@ -19,13 +11,7 @@ export const getIndex = (req, res) => {
 // ========================================
 // CONTROLADOR PARA OBTENER PRODUCTOS
 // ========================================
-// aqui tambien habra un llamada al base de datos, traeme todos los productos ect
-// habra latencia y por tanto asysc y try catch
-// Esta función se ejecuta cuando recibimos una petición
-// GET a la ruta "/productos" Enviamos una respuesta HTTP 200 (OK).
-// Dentro de .json() como hemos comentado enviamos un objeto JavaScript
-// que Express convierte automáticamente a formato JSON.
-// Es Array con los productos (objetos) que queremos devolver al cliente, procedera de bd
+
 export const getProducts = async (req, res) => {
   try {
     res.status(200).json({
@@ -58,17 +44,7 @@ export const getProducts = async (req, res) => {
 
 export const getProdctById = async (req, res) => {
   try {
-    // obtener el id
-    // console.log(req.params);
-    //en el router tengo servicios/:id y si tuviera ademas :/cat tambieen estaria como parametro
-    const id = req.params.id; // Recogeremos los datos que nos envían en el body desde el front
-    // req.body, req.header...., req.query
-    // llamada a la bd y solicita el servicio por su id
-    // db.servicios.find(_id:id)
-    // si no existo 404
-    // const servicioEncontrado = await Servicio.findById(id);
 
-    // 2. Simulamos una búsqueda en la base de datos
     const productoEncontrado = {
       id: id,
       nombre: "Desarrollo web",
@@ -104,10 +80,6 @@ export const getProdctById = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    // console.log(req.body);
-    // const servicio = req.body;
-    // llamo a base de datos y crear nuevo servicios con los datos del objeto
-    // comprobar si el producto existe
     /*
     if (!true){
           res.status(401).json({
@@ -134,15 +106,7 @@ export const createProduct = async (req, res) => {
 
 export const updateProductById = async (req, res) => {
   try {
-    // obtener el id
-    // console.log(req.params);
-
-    //en el router tengo servicios/:id y si tuviera ademas :/cat tambieen estaria
     const id = req.params.id; // el id que se pase en la url de postma
-    // Recogeremos los datos que nos envía el front en el body algo asi ya lo veremos
-    // const { id, nombre } = req.body;
-
-    // para caputrar querys seria con req.query ?page=1&
 
     res.status(200).json({
       ok: true,
