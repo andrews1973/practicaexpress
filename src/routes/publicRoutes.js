@@ -14,7 +14,7 @@ import express from "express";
 // Y que se ejecutarán cuando recibamos una petición
 // Cada controlador se encargará de responder
 // a una ruta determinada, se ponen de forma automatica si hacemos intro en vsc al definir rutas
-import {getIndex, deleteProductById, deleteServiceById, getProdctById,getProducts,getServiceByid,getServices, postProduct, postService, updateProductById, updateServiceById} from "../controller/publicControllers.js";
+import {getIndex, deleteProductById, deleteServiceById, getProdctById,getProducts,getServiceByid,getServices, createProduct, createService, updateProductById, updateServiceById} from "../controller/publicControllers.js";
 
 // ========================================
 // 2. CREAR EL ROUTER
@@ -44,7 +44,7 @@ router.get("/productos", getProducts);
 router.get("/productos/:id", getProdctById)
 
 // POST "/productos"
-router.post("/productos/", postProduct);
+router.post("/productos/", createProduct);
 
 // PUT "/producto/:id"
 router.put("/productos/:id", updateProductById)
@@ -60,7 +60,7 @@ router.get("/servicios", getServices);
 router.get("/servicios/:id", getServiceByid)
 
 // POST "/servicio"
-router.post("/servicios/", postService);
+router.post("/servicios/", createService);
 
 // PUT "/servicio/:id"
 router.put("/servicios/:id", updateServiceById)

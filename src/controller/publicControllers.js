@@ -31,16 +31,16 @@ export const getProducts = async (req, res) => {
     res.status(200).json({
       ok: true,
       mesg: "esto es productos",
-      articulos: [
+      productos: [
         {
           id: 1,
-          nombre: "articulo1",
-          descripcion: "des arti 1",
+          nombre: "producto1",
+          descripcion: "des prod 1",
         },
         {
           id: 2,
-          nombre: "articulo2",
-          descripcion: "des arti 2",
+          nombre: "producto2",
+          descripcion: "des prod 2",
         },
       ],
     });
@@ -58,17 +58,41 @@ export const getProducts = async (req, res) => {
 
 export const getProdctById = async (req, res) => {
   try {
-    const id = req.params.id; // Recogeremos los datos que nos envían en el body desde el front (no haremos asi esto ya lo veremos)
-    
+    // obtener el id
+    // console.log(req.params);
+    //en el router tengo servicios/:id y si tuviera ademas :/cat tambieen estaria como parametro
+    const id = req.params.id; // Recogeremos los datos que nos envían en el body desde el front
+    // req.body, req.header...., req.query
+    // llamada a la bd y solicita el servicio por su id
+    // db.servicios.find(_id:id)
+    // si no existo 404
+    // const servicioEncontrado = await Servicio.findById(id);
+
+    // 2. Simulamos una búsqueda en la base de datos
+    const productoEncontrado = {
+      id: id,
+      nombre: "Desarrollo web",
+      precio: 150,
+    };
+
+    // 3. Simulamos que no encontramos el servicio
+    if (!productoEncontrado ) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Producto no encontrado",
+      });
+    }
+
+    // 4. Devolvemos el servicio encontrado
     res.status(200).json({
       ok: true,
       msg: `Has pedido el producto ${id}`,
+      servicioEncontrado,
     });
-    // throw error // descomentar para comprobar que entra en el catch
   } catch (error) {
     res.status(500).json({
-      ok: true,
-      msg: "error del servidor siempre 500",
+      ok: false,
+      msg: "Error del servidor",
     });
   }
 };
@@ -76,12 +100,25 @@ export const getProdctById = async (req, res) => {
 // ========================================
 // CONTROLADOR PARA CREAR productos
 // ========================================
+// 401 si existe comprobar que exista el producto
 
-export const postProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
   try {
+    // console.log(req.body);
+    // const servicio = req.body;
+    // llamo a base de datos y crear nuevo servicios con los datos del objeto
+    // comprobar si el producto existe
+    /*
+    if (!true){
+          res.status(401).json({
+          ok: true,
+          msg: "el servicio ya exite",
+        })
+      }
+    */
     res.status(201).json({
       ok: true,
-      msg: "Has hecho un post de un producto",
+      msg: "Has creado de un producto",
     });
   } catch (error) {
     res.status(500).json({
@@ -97,9 +134,15 @@ export const postProduct = async (req, res) => {
 
 export const updateProductById = async (req, res) => {
   try {
-    const id = req.params.id; 
+    // obtener el id
+    // console.log(req.params);
+
+    //en el router tengo servicios/:id y si tuviera ademas :/cat tambieen estaria
+    const id = req.params.id; // el id que se pase en la url de postma
     // Recogeremos los datos que nos envía el front en el body algo asi ya lo veremos
     // const { id, nombre } = req.body;
+
+    // para caputrar querys seria con req.query ?page=1&
 
     res.status(200).json({
       ok: true,
@@ -175,11 +218,11 @@ export const getServices = async (req, res) => {
 // Normalmente utilizaremos POST para enviar información desde el cliente al servidor y crear un nuevo producto.
 // Enviamos el código de estado HTTP 201 (Created). Este código indica que se ha creado un recurso.
 // tambien habria que comprobar si existe el servicio y entonces no dejara crearlo devolviendo 401 etc...
-export const postService = async (req, res) => {
+export const createService = async (req, res) => {
   try {
     res.status(201).json({
       ok: true,
-      msg: "Has hecho un post de un servicio",
+      msg: "Has creado un servicio",
     });
   } catch (error) {
     res.status(500).json({
@@ -195,10 +238,10 @@ export const postService = async (req, res) => {
 // Recogemos el ID de la URL y otros parametros como nombre del servicio etc
 // es decir requiero esos datos que me los manda el front y iran en el parmetro req
 // y estos datos vendran en un json
-// {id:1, nombre: serviciotal}, que iran en el cuerpo
+// comprobar que exista el servicio
 export const getServiceByid = async (req, res) => {
   try {
-    const id = req.params.id; 
+    const id = req.params.id;
 
     res.status(200).json({
       ok: true,
@@ -219,7 +262,7 @@ export const getServiceByid = async (req, res) => {
 
 export const updateServiceById = async (req, res) => {
   try {
-    const id = req.params.id; 
+    const id = req.params.id;
 
     res.status(200).json({
       ok: true,
@@ -239,8 +282,8 @@ export const updateServiceById = async (req, res) => {
 // ========================================
 export const deleteServiceById = async (req, res) => {
   try {
-    const id = req.params.id; 
-    
+    const id = req.params.id;
+
     res.status(200).json({
       ok: true,
       msg: `Has borrado el servicio ${id}`,
