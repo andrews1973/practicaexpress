@@ -14,7 +14,7 @@ import express from "express";
 // Y que se ejecutarán cuando recibamos una petición
 // Cada controlador se encargará de responder
 // a una ruta determinada, se ponen de forma automatica si hacemos intro en vsc al definir rutas
-import {getIndex, deleteProductById, deleteServiceById, getProdctById,getProducts,getServiceByid,getServices, createProduct, createService, updateProductById, updateServiceById} from "../controller/publicControllers.js";
+import {deleteServiceById, getServiceByid, getServices, createService, updateServiceById} from "../controller/sevicioController.js";
 
 // ========================================
 // 2. CREAR EL ROUTER
@@ -22,55 +22,32 @@ import {getIndex, deleteProductById, deleteServiceById, getProdctById,getProduct
 
 // express.Router() nos permite crear un sistema de rutas.
 // Asi, podemos organizar las rutas en archivos separados en lugar de tenerlas todas en app.js.
-const router = express.Router();
+const routerServicios = express.Router();
 
 
 // ========================================
 // 3. DEFINIR LAS RUTAS
 // ========================================
 
-// GET "/" 
-// Atiende las peticiones GET que llegan a la página principal.
-// Ejecuta el controlador getIndex.
-router.get("/", getIndex);
-
-
-// GET "/productos"
-// Atiende las peticiones GET que llegan a la url /productos.
-// Ejecuta el controlador getProductos.
-router.get("/productos", getProducts);
-
-// GET "/productos/:id"
-router.get("/productos/:id", getProdctById)
-
-// POST "/productos"
-router.post("/productos/", createProduct);
-
-// PUT "/producto/:id"
-router.put("/productos/:id", updateProductById)
-
-// DELETE "/producto/:id"
-router.delete("/productos/:id", deleteProductById)
-
 
 // GET "/servicios"
-router.get("/servicios", getServices);
+routerServicios.get("/", getServices);
 
 // GET "/servicios/:id"
-router.get("/servicios/:id", getServiceByid)
+routerServicios.get("/:id", getServiceByid)
 
 // POST "/servicio"
-router.post("/servicios/", createService);
+routerServicios.post("/", createService);
 
 // PUT "/servicio/:id"
-router.put("/servicios/:id", updateServiceById)
+routerServicios.put("/:id", updateServiceById)
 
 // DELETE "/servicios/:id"
-router.delete("/servicios/:id", deleteServiceById)
+routerServicios.delete("/:id", deleteServiceById)
 
 // ========================================
 // 4. EXPORTAR EL ROUTER
 // ========================================
 
 // Exportamos el router para poder importarlo y utilizarlo desde app.js.
-export default router;
+export default routerServicios;

@@ -12,16 +12,17 @@
 // importamos dotenv y creamos la variable port junto con app.listen para escuchar el puerto
 // en la docu pone que se importa asi import "dotenv/config";
 
+import express from "express";
+
 // Cargamos las variables de entorno definidas en el archivo .env.
 // Así podemos acceder a ellas mediante process.env. y la import se hace asi
-
-import express from "express";
 import "dotenv/config";
-import helmet from "helmet"
+
+import helmet from "helmet" //  añadir cabeceras HTTP de seguridad npm i helmet   
 
 // Importamos el archivo que contiene las rutas públicas
-import publicRoutes from "./routes/publicRoutes.js";
-
+import productosRoutes from "./routes/productosRoutes.js";
+import serviciosRoutes from "./routes/serviciosRoutes.js";
 
 // ========================================
 // 1. CREAR LA APLICACIÓN
@@ -30,7 +31,7 @@ import publicRoutes from "./routes/publicRoutes.js";
 // Ejecutamos express() para crear nuestra aplicación.
 // La variable app será la encargada de gestionar las peticiones que lleguen a nuestro servidor.
 const app = express();
-app.use (helmet()) // seguridad
+app.use (helmet()) // seguridad usamos helmet
 
 // ========================================
 // 2. CONFIGURAR EL PUERTO
@@ -56,8 +57,7 @@ const port = process.env.PORT || 3000;
 // Debe ejecutarse antes de las rutas para que estas
 // puedan acceder a los datos recibidos.
 
-// parse para formularios application xxx-form-unrlencoded
-// body-parser ya viene instalado en espress por eso hacemos express.urlencoded() y express.json()
+// para formularios application xxx-form-unrlencoded
 app.use(express.urlencoded())
 // parse aplication json
 
@@ -80,7 +80,8 @@ app.use(express.json());
 // Cuando llegue una petición a alguna direccion, 
 // Express buscará la ruta correspondiente en publicRoutes.js.
 
-app.use("/", publicRoutes);
+app.use("/api/v1/productos", productosRoutes );
+app.use("/api/v1/servicios", serviciosRoutes );
 
 
 
